@@ -18,6 +18,11 @@ export const removeAuthToken = () => {
   delete api.defaults.headers.common["Authorization"];
 };
 
+const token = getAuthToken();
+if (token) {
+  setAuthToken(token);
+}
+
 export const login = async (username: string, password: string) => {
   const response = await api.post("/auth/login", { username, password });
   return response.data;
