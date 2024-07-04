@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { NoteForm } from "@/components/NoteForm";
-import { getNotes } from "@/lib/api";
+import { getNotes, deleteNote } from "@/lib/api";
 
 interface Note {
   _id: string;
@@ -45,6 +45,18 @@ export default function NotePage() {
     fetchNote();
   }, [id]);
 
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this note?")) {
+      try {
+        await deleteNote(id);
+        router.push("/notes");
+      } catch (error) {
+        console.error("Failed to delete note:", error);
+        setError("Failed to delete note. Please try again.");
+      }
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!note) return <div>Note not found</div>;
@@ -83,6 +95,14 @@ export default function NotePage() {
           >
             Edit
           </Button>
+          <Button
+            onClick={handleDelete}
+            variant="destructive"
+            className="mr-2"
+          >
+            Delete
+          </Button>
+
           <Button
             onClick={() => router.push("/notes")}
             variant="outline"
