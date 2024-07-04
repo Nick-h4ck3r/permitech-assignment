@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { login, setAuthToken } from "@/lib/api";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
@@ -12,6 +13,13 @@ export function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const { token } = await login(username, password);
+      setAuthToken(token);
+      router.push("/notes");
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
