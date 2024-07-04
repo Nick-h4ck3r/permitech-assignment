@@ -9,6 +9,7 @@ import { register, setAuthToken } from "@/lib/api";
 export function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,6 +20,7 @@ export function RegisterForm() {
       router.push("/notes");
     } catch (error) {
       console.error("Registration failed:", error);
+      setError("Registration failed. Please try again.");
     }
   };
 
@@ -27,6 +29,7 @@ export function RegisterForm() {
       onSubmit={handleSubmit}
       className="space-y-4"
     >
+      {error && <div className="text-red-500">{error}</div>}
       <Input
         type="text"
         placeholder="Username"
