@@ -65,4 +65,10 @@ export const deleteNote = async (id: string) => {
   return response.data;
 };
 
+export const searchNotes = async (query: string) => {
+  const encodedQuery = encodeURIComponent(query);
+  const response = await api.get(`/notes/search?q=${encodedQuery}`);
+  return response.data;
+};
+
 export default api;
