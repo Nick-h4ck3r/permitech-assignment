@@ -5,7 +5,17 @@ const api = axios.create({
 });
 
 export const setAuthToken = (token: string) => {
+  localStorage.setItem("token", token);
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+export const getAuthToken = () => {
+  return localStorage.getItem("token");
+};
+
+export const removeAuthToken = () => {
+  localStorage.removeItem("token");
+  delete api.defaults.headers.common["Authorization"];
 };
 
 export const login = async (username: string, password: string) => {
