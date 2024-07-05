@@ -6,21 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { login, setAuthToken } from "@/lib/api";
 import Image from "next/image";
+import { useAuth } from "@/hooks/AuthContext";
 
 export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { checkAuthStatus } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const { token } = await login(username, password);
       setAuthToken(token);
+      checkAuthStatus();
       router.push("/notes");
     } catch (error) {
       console.error("Login failed:", error);

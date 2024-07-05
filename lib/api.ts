@@ -17,7 +17,9 @@ export const getAuthToken = () => {
 };
 
 export const removeAuthToken = () => {
-  localStorage.removeItem("token");
+  if (typeof window !== "undefined" && window.localStorage) {
+    localStorage.removeItem("token");
+  }
   delete api.defaults.headers.common["Authorization"];
 };
 

@@ -1,17 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { removeAuthToken } from "@/lib/api";
+import Link from "next/link";
+import LogInOutButton from "@/components/LogInOutButton";
+import { useAuth } from "@/hooks/AuthContext";
+import { useEffect } from "react";
 
 export function Navigation() {
-  const router = useRouter();
+  const { isLoggedIn, checkAuthStatus } = useAuth();
 
-  const handleLogout = () => {
-    removeAuthToken();
-    router.push("/login");
-  };
+  useEffect(() => {
+    checkAuthStatus();
+  }, [checkAuthStatus]);
 
   return (
     <nav className="bg-gray-800 text-white p-4">
@@ -19,22 +19,20 @@ export function Navigation() {
         <Link href="/">
           <span className="text-xl font-bold">Notes App</span>
         </Link>
-        <div className="space-x-4">
-          <Link href="/notes">
-            <Button
-              className="duration-300"
-              variant="ghost"
-            >
-              My Notes
-            </Button>
-          </Link>
-          <Button
-            className="duration-300"
-            variant="destructive"
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+
+        <div className="flex ic space-x-4">
+          {isLoggedIn && (
+            <Link href="/notes">
+              <Button
+                className="duration-300"
+                variant="default"
+              >
+                My Notes
+              </Button>
+            </Link>
+          )}
+
+          <LogInOutButton />
         </div>
       </div>
     </nav>

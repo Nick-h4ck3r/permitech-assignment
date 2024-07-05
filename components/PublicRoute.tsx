@@ -1,31 +1,24 @@
 "use client";
 
-import { getAuthToken } from "@/lib/api";
+import { useAuth } from "@/hooks/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function PublicRoute({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const token = getAuthToken();
-      if (token) {
-        router.push("/notes");
-      } else {
-        setIsLoading(false);
-      }
-    };
+    if (isLoggedIn) {
+      router.push("/notes");
+    }
+  }, [isLoggedIn, router]);
 
-    checkAuth();
-  }, [router]);
-
-  if (isLoading) {
+  if (isLoggedIn) {
     return (
       <div className="flex min-h-screen items-center justify-center gap-4">
-        <div>Loading</div>
+        <div>Redirecting</div>
         <Image
           height={15}
           width={15}
