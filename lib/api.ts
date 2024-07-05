@@ -10,7 +10,10 @@ export const setAuthToken = (token: string) => {
 };
 
 export const getAuthToken = () => {
-  return localStorage.getItem("token");
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("token");
+  }
+  return null;
 };
 
 export const removeAuthToken = () => {
