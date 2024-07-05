@@ -24,6 +24,10 @@ git clone https://github.com/Nick-h4ck3r/permitech-assignment.git
 
 ### frontend
 
+#### Replacing the Backend URL
+
+Replace the `baseURL` in `lib/api.ts` file with your backend URL.
+
 #### Installing Dependencies
 
 ```bash
