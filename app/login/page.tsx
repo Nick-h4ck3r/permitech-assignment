@@ -10,7 +10,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-bold mb-4">Login</h1>
           <LoginForm />
           <p className="text-sm py-2">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/register"
               className="text-blue-500"
