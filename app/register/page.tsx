@@ -1,5 +1,6 @@
 import { PublicRoute } from "@/components/PublicRoute";
 import { RegisterForm } from "@/components/RegisterForm";
+import Link from "next/link";
 
 export default function RegisterPage() {
   return (
@@ -10,12 +11,12 @@ export default function RegisterPage() {
           <RegisterForm />
           <p className="text-sm py-2">
             Already have an account?{" "}
-            <a
+            <Link
               href="/login"
               className="text-blue-500"
             >
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>
