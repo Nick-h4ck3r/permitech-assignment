@@ -49,6 +49,11 @@ export const getNote = async (id: string) => {
   return response.data;
 };
 
+export const getPublishedNote = async (id: string) => {
+  const response = await api.get(`/notes/view/${id}`);
+  return response.data;
+};
+
 export const createNote = async (note: {
   title: string;
   body: string;
