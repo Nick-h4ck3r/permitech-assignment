@@ -12,7 +12,7 @@ interface Note {
   published: boolean;
 }
 
-const getPublishedNotePage = () => {
+const GetPublishedNotePage = () => {
   const [note, setNote] = useState<Note | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,4 +63,4 @@ const getPublishedNotePage = () => {
   );
 };
 
-export default getPublishedNotePage;
+export default GetPublishedNotePage;
